@@ -1,0 +1,53 @@
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+X    T                                                                X
+X                                 T                                   X
+X                                                                     X
+X                                                    T                X
+X                   T                                                 X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                               G                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                      G                                              X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                          GG                                         X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+start 25, 47
+end 67, 1

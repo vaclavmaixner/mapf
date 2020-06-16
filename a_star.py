@@ -3,6 +3,7 @@ import heapq
 
 
 def run_a_star(maze, layout, start, end, put_on_a_show, constraints):
+    print('called')
     queue = []
     closed = []
     prev = {}
@@ -13,12 +14,10 @@ def run_a_star(maze, layout, start, end, put_on_a_show, constraints):
 
     timestep = 0
 
-    # print(start, end, ' agent, target')
-    # print(queue)
-
     layout[start[1]][start[0]] = 'S'
     layout[end[1]][end[0]] = 'E'
 
+    current_constraint = []
 
     while queue:
         # print('.', end='')
@@ -28,11 +27,11 @@ def run_a_star(maze, layout, start, end, put_on_a_show, constraints):
         if open_node == end:
             path = utils.reconstruct_path(layout, prev, start, end)
             # maze.report(name='A*')
-            # print(path)
-            # print(prev)
-            # print('hhhhhhhhhhhhhhhhhhhhhhhhhhh')
-
+            print(path, ' a star output')
             return path
+       
+        if constraints:
+            current_constraint = utils.import_current_constraints(constraints, timestep)
 
         neighbours = maze.get_neighbours(open_node)
         for neighbour in neighbours:
@@ -40,14 +39,20 @@ def run_a_star(maze, layout, start, end, put_on_a_show, constraints):
                 distance_to_node = distance[open_node] + utils.get_distance(open_node, neighbour)
                 distance_to_end = utils.get_distance(neighbour, end)
 
-                if maze.layout[neighbour[1]][neighbour[0]] != 'X':
-                    if (neighbour not in queue) or (distance_to_node < distance[neighbour]):
-                        prev[neighbour] = open_node
-                        distance[neighbour] = distance_to_node
+                if constraints:
+                    occupied = utils.is_occupied(neighbour, current_constraint)
+                else:
+                    occupied = False
 
-                        if neighbour not in queue:
-                            heapq.heappush(queue, (distance_to_node + distance_to_end, neighbour))
-                        closed.append(neighbour)
+                if maze.layout[neighbour[1]][neighbour[0]] != 'X':
+                    if not occupied:
+                        if (neighbour not in queue) or (distance_to_node < distance[neighbour]):
+                            prev[neighbour] = open_node
+                            distance[neighbour] = distance_to_node
+
+                            if neighbour not in queue:
+                                heapq.heappush(queue, (distance_to_node + distance_to_end, neighbour))
+                            closed.append(neighbour)
 
         closed.append(open_node)
         # if open_node != start:

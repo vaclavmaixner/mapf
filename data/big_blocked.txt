@@ -8,19 +8,15 @@ X                                                                     X
 X                                                                     X
 X                                                                     X
 X                                                                     X
+XXXXXXXXXXXXXXXXXXXXX XXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXX
 X                                                                     X
 X                                                                     X
-X                                                                     X
-X                                               G                     X
-X                                                                     X
-X                                                                     X
-X                                                                     X
-X                                                                     X
+X                                               A                     X
 X                                                                     X
 X                                                                     X
 X                                                                     X
 X                                                                     X
-X                                                                     X
+XXX XXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX   XXXXXXXXXXXX XXXXXXXXX XXXXXXX
 X                                                                     X
 X                                                                     X
 X                                                                     X
@@ -28,13 +24,7 @@ X                                                                     X
 X                                                                     X
 X                                                                     X
 X                                                                     X
-X                                                                     X
-X                                                                     X
-X                                                                     X
-X                                                                     X
-X                                                                     X
-X                                                                     X
-X                      G                                              X
+XXXXXXXXX    XXXXXXXXXXXXXXX  XXXX XXXX XXXXXXXXXX XXXXXXX  XXXXXXXXXXX
 X                                                                     X
 X                                                                     X
 X                                                                     X
@@ -44,10 +34,18 @@ X                                                                     X
 X                                                                     X
 X                                                                     X
 X                                                                     X
-X                          GG                                         X
+X                      A                                              X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                                                                     X
+X                          AA                                         X
 X                                                                     X
 X                                                                     X
 X                                                                     X
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-start 25, 47
-end 67, 1

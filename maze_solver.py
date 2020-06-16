@@ -43,15 +43,13 @@ class Maze():
         for value in path.values():
             self.layout[value[1]][value[0]] = ' '
 
-    
-
     # def setup_start_end(self):
     #     self.layout[self.start[1]][self.start[0]] = 'S'
     #     self.layout[self.end[1]][self.end[0]] = 'E'
 
     def get_neighbours(self, node):
         y, x = node
-        neighbours = [(y + 1, x), (y, x + 1), (y-1, x), (y, x - 1)]
+        neighbours = [(y + 1, x), (y, x + 1), (y-1, x), (y, x - 1), (y, x)]
         return neighbours
 
     def report(self, name):
@@ -90,20 +88,47 @@ def find_conflicts():
     pass
 
 
+def update_constraints(constraints, path):
+    for key, value in path.items():
+        constraints.append((key, value))
+    return constraints
+
+
 def run_solver(maze):
     paths = alocate(maze)
 
-    utils.plot_paths(maze.original_layout, paths)
-    print(paths)
+    sorted_paths = sorted(paths, key=lambda path: len(path), reverse=True)
+
+    priority_path = sorted_paths.pop(0)
+    constraints = []
+    constraints = update_constraints(constraints, priority_path)
+
+    for path in sorted_paths:
+        lock = False
+        print(path)
+        for key, value in path.items():
+            if (key, value) in constraints:
+                lock = True
+                break
+        if lock:
+            print(path, ' path before')
+            path = run_a_star(
+                maze, maze.original_layout, path.get(
+                    0), list(path.values())[-1],
+                put_on_a_show=False, constraints=constraints)
+            print(path)
+            update_constraints(constraints, path)
+
+    print(constraints)
+
     # for pair in pairs:
     #     print(routes)
     #     route = run_a_star(maze, pair[0], pair[1], put_on_a_show=False, constraints=routes)
     #     routes.append(route)
 
-    # print(routes)
 
 def Main():
-    layout = open('data/big_empty.txt', 'r')
+    layout = open('data/deadlock.txt', 'r')
 
     maze, agents, targets = utils.process_layout(layout)
     maze = Maze(maze, maze, agents, targets)

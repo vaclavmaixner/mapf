@@ -132,3 +132,24 @@ def plot_paths(layout, paths):
     animation = ArtistAnimation(fig, images, interval=400)
     print('Kroků animace:', len(images))
     animation.save('anim.mp4', dpi=800)
+
+
+def import_current_constraints(constraints, timestep):
+    # print(constraints)
+    # print(timestep)
+
+    current_constraints = []
+    for c in constraints:
+        if c[0] == timestep:
+            current_constraints.append(c[1])
+    
+    return current_constraints
+
+def is_occupied(neighbour, current_constraint):
+    occupied = False
+    for cc in current_constraint:
+        if cc == neighbour:
+            occupied = True
+            print('deadlock', cc, neighbour)
+        
+    return occupied

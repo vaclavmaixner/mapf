@@ -72,7 +72,7 @@ def alocate(maze):
         for j in range(len(maze.targets)):
             maze.layout = maze.original_layout
             path = run_a_star(
-                maze, maze.original_layout, maze.agents[i], maze.targets[j], put_on_a_show=False, constraints=None)
+                maze, maze.original_layout, maze.agents[i], maze.targets[j], put_on_a_show=True, constraints=None)
 
             distance_table[i][j] = len(path)
             path_table[i][j] = path

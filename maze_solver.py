@@ -101,25 +101,40 @@ def run_solver(maze):
 
     priority_path = sorted_paths.pop(0)
     constraints = []
-    constraints = update_constraints(constraints, priority_path)
 
+    # constraints = [(3,(6,6)), (4,(6,6)), (5,(6,6)), (6,(6,6)), (7,(6,6)), (8,(6,6)), (9,(6,6)), (10,(6,6))]
+    
+    constraints = update_constraints(constraints, priority_path)
+    
+    # print(constraints)
+
+    final_paths = []
+    final_paths.append(priority_path)
+    
     for path in sorted_paths:
         lock = False
-        print(path)
+        # print(path)
         for key, value in path.items():
             if (key, value) in constraints:
                 lock = True
                 break
         if lock:
-            print(path, ' path before')
+            # print(path, ' path before')
             path = run_a_star(
                 maze, maze.original_layout, path.get(
                     0), list(path.values())[-1],
                 put_on_a_show=False, constraints=constraints)
+            final_paths.append(path)
+            print('returned')
             print(path)
-            update_constraints(constraints, path)
+            constraints = update_constraints(constraints, path)
 
     print(constraints)
+    print('x'*200)
+    # print('x'*200)
+    # print('x'*200)
+    
+    utils.plot_paths(maze.original_layout, final_paths)
 
     # for pair in pairs:
     #     print(routes)
@@ -128,7 +143,7 @@ def run_solver(maze):
 
 
 def Main():
-    layout = open('data/deadlock.txt', 'r')
+    layout = open('data/blocked_path.txt', 'r')
 
     maze, agents, targets = utils.process_layout(layout)
     maze = Maze(maze, maze, agents, targets)

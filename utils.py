@@ -46,7 +46,11 @@ def process_layout(layout):
     return maze, agents, targets
 
 
-def reconstruct_path(maze, prev, start, end):
+def reconstruct_path(maze, prev, start, end, waits):
+    
+    # print('reconstruct path called')
+    # print(prev)
+    
     node = end
 
     path = []
@@ -59,10 +63,25 @@ def reconstruct_path(maze, prev, start, end):
 
     path.reverse()
 
+    for wait in waits:
+        i = path.index(wait)
+        path.insert(i, wait)
+
+    # print(path)
+    # print()
+    # print()
+    # print()
     path_dict = {}
     for i in range(len(path)):
         path_dict[i] = path[i]
-
+    
+    # print(path_dict)
+    # print()
+    # print()
+    # print()
+    # print()
+    # print()
+    # print()
     # print(path_dict)
 
     # for node in path:
@@ -140,16 +159,20 @@ def import_current_constraints(constraints, timestep):
 
     current_constraints = []
     for c in constraints:
-        if c[0] == timestep:
+        if c[0] == timestep + 1:
             current_constraints.append(c[1])
-    
+    # print('current constraints ', current_constraints)
     return current_constraints
 
 def is_occupied(neighbour, current_constraint):
     occupied = False
+
+    # print(neighbour, 'neighbour')
+    # print(current_constraint, 'cc')
+
     for cc in current_constraint:
         if cc == neighbour:
             occupied = True
-            print('deadlock', cc, neighbour)
+            # print('deadlock', cc, neighbour)
         
     return occupied

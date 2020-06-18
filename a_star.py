@@ -80,7 +80,8 @@ def run_a_star(maze, layout, start, end, put_on_a_show, constraints):
                             closed.append(neighbour)
                     elif occupied:
                         print('wait added', neighbour)
-                        waits.append(neighbour)
+                        if neighbour not in waits:
+                            waits.append(neighbour)
                     
         # if len(queue) == 1 and queue[0][1] == open_node:
         # if len(queue) == 1 and queue[0][1] == open_node:

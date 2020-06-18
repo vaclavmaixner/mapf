@@ -1,11 +1,11 @@
 XXXXXXXXXXX
-X   T T   X
+X   TTT   X
 X         X
 X         X
 X         X
 XXXXX XXXXX
-X         X
 X   A A   X
+X    A    X
 X         X
 X         X
 XXXXXXXXXXX

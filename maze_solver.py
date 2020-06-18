@@ -129,10 +129,12 @@ def run_solver(maze):
             print(path)
             constraints = update_constraints(constraints, path)
 
-    print(constraints)
+    # print(constraints)
+    # print('x'*200)
+    # print('x'*200)
     print('x'*200)
-    # print('x'*200)
-    # print('x'*200)
+    for path in final_paths:
+        print(path)
     
     utils.plot_paths(maze.original_layout, final_paths)
 
@@ -143,7 +145,7 @@ def run_solver(maze):
 
 
 def Main():
-    layout = open('data/blocked_path.txt', 'r')
+    layout = open('data/deadlock.txt', 'r')
 
     maze, agents, targets = utils.process_layout(layout)
     maze = Maze(maze, maze, agents, targets)

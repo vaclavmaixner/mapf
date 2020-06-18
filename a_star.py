@@ -8,10 +8,10 @@ def run_a_star(maze, layout, start, end, put_on_a_show, constraints):
     prev = {}
     distance = {}
 
-    heapq.heappush(queue, (0, start))
-    distance[start] = 0
-
     timestep = 0
+
+    heapq.heappush(queue, (0, start, timestep))
+    distance[start] = 0
 
     layout[start[1]][start[0]] = 'S'
     layout[end[1]][end[0]] = 'E'
@@ -35,9 +35,9 @@ def run_a_star(maze, layout, start, end, put_on_a_show, constraints):
         if open_node == end:
             path = utils.reconstruct_path(layout, prev, start, end, waits)
             # maze.report(name='A*')
-            # print(path, ' a star output, konec')
+            print(path, ' a star output, konec')
             # print('/'*200)
-            print(path)
+            # print(path)
             return path
        
         if constraints:
@@ -55,15 +55,19 @@ def run_a_star(maze, layout, start, end, put_on_a_show, constraints):
 
         for neighbour in neighbours:
             if neighbour not in closed:
-                distance_to_node = distance[open_node] + utils.get_distance(open_node, neighbour)
-                distance_to_end = utils.get_distance(neighbour, end)
+                distance_to_node = distance[open_node] + utils.get_manhattan_distance(open_node, neighbour)
+                distance_to_end = utils.get_manhattan_distance(neighbour, end)
 
                 if constraints:
                     occupied = utils.is_occupied(neighbour, current_constraint)
+                    # print('constraints')
+                    # print(constraints)
                 else:
                     occupied = False
-                # print('occupied')
-                # print(occupied)
+                
+                if occupied:
+                    print('occupied')
+                    print(occupied)
 
                 if maze.layout[neighbour[1]][neighbour[0]] != 'X':
                     if not occupied:
@@ -72,11 +76,16 @@ def run_a_star(maze, layout, start, end, put_on_a_show, constraints):
                             distance[neighbour] = distance_to_node
 
                             if neighbour not in queue:
-                                heapq.heappush(queue, (distance_to_node + distance_to_end, neighbour))
+                                heapq.heappush(queue, (distance_to_node + distance_to_end, neighbour, timestep))
                             closed.append(neighbour)
-        if len(queue) == 1 and queue[0][1] == open_node:
+                    elif occupied:
+                        print('wait added', neighbour)
+                        waits.append(neighbour)
+                    
+        # if len(queue) == 1 and queue[0][1] == open_node:
+        # if len(queue) == 1 and queue[0][1] == open_node:
             # print('TED CEKAM' * 100)
-            waits.append(open_node)
+            # waits.append(open_node)
         closed.append(open_node)
         # print('queue at end')
         # print(queue)

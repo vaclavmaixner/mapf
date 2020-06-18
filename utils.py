@@ -1,11 +1,10 @@
+from matplotlib import colors
+from matplotlib.animation import ArtistAnimation
+import matplotlib.pyplot as plt
+import numpy as np
+import math
 import matplotlib
 matplotlib.use("Agg")
-
-import math
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.animation import ArtistAnimation
-from matplotlib import colors
 
 
 class Agent():
@@ -47,25 +46,33 @@ def process_layout(layout):
 
 
 def reconstruct_path(maze, prev, start, end, waits):
-    
+
     # print('reconstruct path called')
     # print(prev)
-    
+
     node = end
 
     path = []
-
+    print('what is given to reconstruct:')
+    print(prev)
+    # print('nodes:')
     while node != start:
+        # print(node)
         path.append(node)
         node = prev[node]
 
     path.append(start)
 
     path.reverse()
+    print('reconstruct_path')
+    print(path)
 
-    for wait in waits:
-        i = path.index(wait)
-        path.insert(i, wait)
+    for w in range(len(waits)):
+        if waits[w] in path:
+            i = path.index(waits[w])
+            print(i)
+            if i > 0:
+                path.insert(i - 1, path[i-1])
 
     # print(path)
     # print()
@@ -74,7 +81,7 @@ def reconstruct_path(maze, prev, start, end, waits):
     path_dict = {}
     for i in range(len(path)):
         path_dict[i] = path[i]
-    
+
     # print(path_dict)
     # print()
     # print()
@@ -97,12 +104,18 @@ def get_distance(open_node, neighbour):
     return math.sqrt(dx**2 + dy**2)
 
 
+def get_manhattan_distance(open_node, neighbour):
+    dy = neighbour[0] - open_node[0]
+    dx = neighbour[1] - open_node[1]
+    return abs(dy)+abs(dx)
+
+
 def transform_array_to_int(array, steps):
     int_array = np.zeros((len(array), len(array[0])))
 
     color_index = 0
     for step in steps:
-        int_array[step[1]][step[0]] = 4 
+        int_array[step[1]][step[0]] = 4
 
     for i in range(len(array)):
         for j in range(len(array[0])):
@@ -113,8 +126,6 @@ def transform_array_to_int(array, steps):
             elif array[i][j] == 'E':
                 int_array[i][j] = 3
 
-    
-    
     return int_array.astype(np.int)
 
 
@@ -126,11 +137,11 @@ def plot_paths(layout, paths):
     lengths = [len(path) for path in paths]
     lengths.sort()
     longest_path = lengths[-1]
-    
+
     # print(longest_path)
     fig = plt.figure()
     for i in range(longest_path):
-        
+
         # plt.axis([0, 8, 0, 20])
 
         steps = []
@@ -140,11 +151,10 @@ def plot_paths(layout, paths):
 
         layout_arr = transform_array_to_int(layout, steps)
 
-        img = plt.pcolor(layout_arr[::-1], cmap=cmap, edgecolors='k', linewidths=1)
+        img = plt.pcolor(layout_arr[::-1], cmap=cmap,
+                         edgecolors='k', linewidths=1)
         images.append([img])
 
-
-    
     # plt.xlabel('pořadí')
     # plt.ylabel('přirozená čísla')
     # print(images)
@@ -159,10 +169,12 @@ def import_current_constraints(constraints, timestep):
 
     current_constraints = []
     for c in constraints:
+        # print(c[0], timestep)
         if c[0] == timestep + 1:
             current_constraints.append(c[1])
     # print('current constraints ', current_constraints)
     return current_constraints
+
 
 def is_occupied(neighbour, current_constraint):
     occupied = False
@@ -173,6 +185,6 @@ def is_occupied(neighbour, current_constraint):
     for cc in current_constraint:
         if cc == neighbour:
             occupied = True
-            # print('deadlock', cc, neighbour)
-        
+            print('deadlock', cc, neighbour)
+
     return occupied
